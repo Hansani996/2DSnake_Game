@@ -2,6 +2,7 @@ package lk.swlc.snakegame.panel;
 
 import lk.swlc.snakegame.model.TileType;
 import lk.swlc.snakegame.view.SnakeGame;
+import lk.swlc.snakegame.model.Direction;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +17,7 @@ public class BoardPanel extends JPanel {
     private static final int eyeSmall = tileSize /6;
     private static final int eyeLength = tileSize /5;
     private static final Font font = new Font("Tahoma" , Font.BOLD,25);
+
 
     private SnakeGame snakeGame;
 
@@ -54,7 +56,7 @@ public class BoardPanel extends JPanel {
             for (int y=0;y<rowCount;y++){
                 TileType type = getTile(x,y);
                 if (type != null){
-                    drawTile(x* tileSize, y*tileSize,type);
+                    drawTile(x* tileSize, y*tileSize,type, g);
                 }
             }
         }
@@ -64,11 +66,11 @@ public class BoardPanel extends JPanel {
         for(int x = 0; x < rowCount; x++) {
             for(int y = 0; y < rowCount; y++) {
                 g.drawLine(x * tileSize, 0, x * tileSize, getHeight());
-                g.drawLine(0, y * tileSize, getWidth(), y * TILE_SIZE);
+                g.drawLine(0, y * tileSize, getWidth(), y * tileSize);
             }
         }
 
-        if (snakeGame.isGameOver()|| snakeGame.isPaused()){
+        if (snakeGame.isGameOver() || snakeGame.isNewGame() || snakeGame.isPaused()){
             g.setColor(Color.white);
 
             int cenX = getWidth()/2;
@@ -101,7 +103,7 @@ public class BoardPanel extends JPanel {
         switch (type){
             case Fruit:
                 g.setColor(Color.RED);
-                g.fillOval(x + 2, y + 2, tileSize - 4, TILE_SIZE - 4);
+                g.fillOval(x + 2, y + 2, tileSize - 4, tileSize - 4);
                 break;
 
             case SnakeBody:
@@ -117,28 +119,28 @@ public class BoardPanel extends JPanel {
                 //Set the color to black so that we can start drawing the eyes.
                 g.setColor(Color.BLACK);
                 switch(snakeGame.getDirection()) {
-                    case North: {
+                    case N: {
                         int baseY = y + eyeSmall;
                         g.drawLine(x + eyeLarge, baseY, x + eyeLarge, baseY + eyeLength);
                         g.drawLine(x + tileSize - eyeLarge, baseY, x + tileSize - eyeLarge, baseY + eyeLength);
                         break;
                     }
 
-                    case South: {
+                    case S: {
                         int baseY = y + tileSize - eyeSmall;
                         g.drawLine(x + eyeLarge, baseY, x + eyeLarge, baseY - eyeLength);
                         g.drawLine(x + tileSize - eyeLarge, baseY, x + tileSize - eyeLarge, baseY - eyeLength);
                         break;
                     }
 
-                    case West: {
+                    case W: {
                         int baseX = x + eyeSmall;
                         g.drawLine(baseX, y + eyeLarge, baseX + eyeLength, y + eyeLarge);
                         g.drawLine(baseX, y + tileSize - eyeLarge, baseX + eyeLength, y + tileSize - eyeLarge);
                         break;
                     }
 
-                    case East: {
+                    case E: {
                         int baseX = x + tileSize - eyeSmall;
                         g.drawLine(baseX, y + eyeLarge, baseX - eyeLength, y + eyeLarge);
                         g.drawLine(baseX, y + tileSize - eyeLarge, baseX - eyeLength, y + tileSize - eyeLarge);

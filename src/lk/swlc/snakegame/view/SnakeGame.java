@@ -2,6 +2,7 @@ package lk.swlc.snakegame.view;
 import lk.swlc.snakegame.model.Direction;
 import lk.swlc.snakegame.model.TileType;
 import lk.swlc.snakegame.panel.BoardPanel;
+import lk.swlc.snakegame.panel.SidePanel;
 
 import javax.swing.*;
 import java.awt.BorderLayout;
@@ -47,7 +48,7 @@ public class SnakeGame  extends JFrame {
     private int nextFruitscore;
 
     public SnakeGame(){
-        super("SNAKE GAME");
+        super("SNAKE REMAKE");
         setLayout(new BorderLayout());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
@@ -75,8 +76,8 @@ public class SnakeGame  extends JFrame {
                         }
                         break;
 
-                    case KeyEvent.VK_A:
-                    case KeyEvent.VK_LEFT:
+                    case KeyEvent.VK_S:
+                    case KeyEvent.VK_DOWN:
                         if(!isPaused && !isGameOver) {
                             if(directions.size() < maxDirection) {
                                 Direction last = directions.peekLast();
@@ -87,8 +88,8 @@ public class SnakeGame  extends JFrame {
                         }
                         break;
 
-                    case KeyEvent.VK_D:
-                    case KeyEvent.VK_RIGHT:
+                    case KeyEvent.VK_A:
+                    case KeyEvent.VK_LEFT:
                         if(!isPaused && !isGameOver) {
                             if(directions.size() < maxDirection) {
                                 Direction last = directions.peekLast();
@@ -151,7 +152,7 @@ public class SnakeGame  extends JFrame {
 
             timer.update();
 
-            if (timer.hasElapsedCycle)){
+            if (timer.hasElapsedCycle()){
                 updateGame();
             }
 
@@ -159,9 +160,9 @@ public class SnakeGame  extends JFrame {
             sidePanel.repaint();
 
             long delta = (System.nanoTime() - start) / 1000000L;
-            if(delta < FRAME_TIME) {
+            if(delta < frameTime) {
                 try {
-                    Thread.sleep(FRAME_TIME - delta);
+                    Thread.sleep(frameTime - delta);
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
@@ -174,9 +175,9 @@ public class SnakeGame  extends JFrame {
         if(collision==TileType.Fruit){
             fritsEaten++;
             score+=nextFruitscore;
-            spawnFruit();
+            spawnfruit();
 
-        }else if(collision==TileType.snakeBody){
+        }else if(collision== TileType.SnakeBody){
             isGameOver=true;
             timer.setPaused(true);
 
@@ -247,9 +248,54 @@ public class SnakeGame  extends JFrame {
         directions.add(Direction.N);
 
         timer.reset();
-        spawnFruit();
+        spawnfruit();
     }
 
+    public boolean isNewGame(){
+        return isNewGame;
+    }
+
+    public boolean isGameOver(){
+        return isGameOver;
+    }
+
+    public boolean isPaused(){
+        return isPaused;
+    }
+
+    private void spawnfruit(){
+        this.nextFruitscore = 100;
+        int index = random.nextInt(BoardPanel.colCount * BoardPanel.rowCount - snake.size());
+
+        int freeFound = -1;
+        for (int x =0; x<BoardPanel.colCount;x++){
+            for (int y=0; y<BoardPanel.rowCount;y++){
+                TileType type = board.getTile(x,y);
+                if (type == null || type == TileType.Fruit){
+                    if (++freeFound == index){
+                        board.setTile(x,y, TileType.Fruit);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    public int getScore(){
+        return score;
+    }
+
+    public int getFritsEaten(){
+        return fritsEaten;
+    }
+
+    public int getNextFruitscore(){
+        return nextFruitscore;
+    }
+
+    public Direction getDirection(){
+        return directions.peek();
+    }
 
 
 
