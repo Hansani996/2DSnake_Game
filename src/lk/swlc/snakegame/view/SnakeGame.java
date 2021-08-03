@@ -1,6 +1,7 @@
 package lk.swlc.snakegame.view;
 import lk.swlc.snakegame.model.Direction;
 import lk.swlc.snakegame.model.TileType;
+import lk.swlc.snakegame.panel.BoardPanel;
 
 import javax.swing.*;
 import java.awt.BorderLayout;
@@ -203,7 +204,7 @@ public class SnakeGame  extends JFrame {
                 break;
         }
 
-        if (head.x<0 || head.x >= BoardPanel.COL_COUNT || head.y<0 ||head.y>=BoardPanel.ROW_COUNT){
+        if (head.x<0 || head.x >= BoardPanel.colCount || head.y<0 ||head.y>=BoardPanel.rowCount){
             return TileType.SnakeBody;
         }
 
@@ -226,6 +227,30 @@ public class SnakeGame  extends JFrame {
         return old;
 
     }
+
+    private void restGame(){
+        this.score = 0;
+        this.fritsEaten =0;
+
+        this.isNewGame =false;
+        this.isGameOver = false;
+
+        Point head = new Point(BoardPanel.colCount /2,BoardPanel.rowCount /2);
+
+        snake.clear();
+        snake.add(head);
+
+        board.clearBoard();
+        board.setTile(head, TileType.SnakeHead);
+
+        directions.clear();
+        directions.add(Direction.N);
+
+        timer.reset();
+        spawnFruit();
+    }
+
+
 
 
 }
