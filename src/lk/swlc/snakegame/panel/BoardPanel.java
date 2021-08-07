@@ -16,7 +16,7 @@ public class BoardPanel extends JPanel {
     private static final int eyeLarge = tileSize / 3;
     private static final int eyeSmall = tileSize /6;
     private static final int eyeLength = tileSize /5;
-    private static final Font font = new Font("Tahoma" , Font.BOLD,25);
+    private static final Font font = new Font("SANS_SERIF" , Font.BOLD,25);
 
 
     private SnakeGame snakeGame;
@@ -28,7 +28,7 @@ public class BoardPanel extends JPanel {
         this.tiles = new TileType[rowCount*colCount];
 
         setPreferredSize(new Dimension(colCount*tileSize,rowCount*tileSize));
-        setBackground(Color.BLACK);
+        setBackground(Color.WHITE);
 
     }
 
@@ -61,7 +61,7 @@ public class BoardPanel extends JPanel {
             }
         }
 
-        g.setColor(Color.DARK_GRAY);
+        g.setColor(Color.WHITE);
         g.drawRect(0,0,getWidth()-1,getHeight()-1);
         for(int x = 0; x < rowCount; x++) {
             for(int y = 0; y < rowCount; y++) {
@@ -102,7 +102,7 @@ public class BoardPanel extends JPanel {
     private void drawTile(int x, int y, TileType type, Graphics g){
         switch (type){
             case Fruit:
-                g.setColor(Color.RED);
+                g.setColor(Color.YELLOW);
                 g.fillOval(x + 2, y + 2, tileSize - 4, tileSize - 4);
                 break;
 
@@ -117,7 +117,7 @@ public class BoardPanel extends JPanel {
                 g.fillRect(x, y, tileSize, tileSize);
 
                 //Set the color to black so that we can start drawing the eyes.
-                g.setColor(Color.BLACK);
+                g.setColor(Color.WHITE);
                 switch(snakeGame.getDirection()) {
                     case N: {
                         int baseY = y + eyeSmall;

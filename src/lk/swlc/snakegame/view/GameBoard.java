@@ -115,7 +115,7 @@ public class GameBoard extends JPanel implements ActionListener,Runnable {
     private void gameOver(Graphics g){
         thread.stop();
         String msg = "Game Over";
-        Font small = new Font("Helvetica",Font.BOLD,14);
+        Font small = new Font("SANS_SERIF",Font.BOLD,14);
         FontMetrics metr = getFontMetrics(small);
         g.setColor(Color.white);
         g.setFont(small);

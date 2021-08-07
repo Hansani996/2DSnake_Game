@@ -48,7 +48,7 @@ public class SnakeGame  extends JFrame {
     private int nextFruitscore;
 
     public SnakeGame(){
-        super("SNAKE REMAKE");
+        super("SNAKE GAME");
         setLayout(new BorderLayout());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
@@ -57,7 +57,7 @@ public class SnakeGame  extends JFrame {
         this.sidePanel = new SidePanel(this);
 
         add(board,BorderLayout.CENTER);
-        add(sidePanel,BorderLayout.EAST);
+        add(sidePanel,BorderLayout.NORTH); //EAST
 
         addKeyListener(new KeyAdapter() {
             @Override
