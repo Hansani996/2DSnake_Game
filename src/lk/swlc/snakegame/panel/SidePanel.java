@@ -27,15 +27,15 @@ public class SidePanel extends JPanel {
     public SidePanel(SnakeGame game) {
         this.game = game;
 //change dimention with 300
-        setPreferredSize(new Dimension(100, BoardPanel.rowCount * BoardPanel.tileSize)); //200
+        setPreferredSize(new Dimension(200, BoardPanel.rowCount * BoardPanel.tileSize)); //200
         setBackground(Color.LIGHT_GRAY);
     }
 
-    private static final int STATISTICS_OFFSET = 100;//150
+    private static final int STATISTICS_OFFSET = 100;
 
-    private static final int CONTROLS_OFFSET = 50;   ///320    300
+    private static final int CONTROLS_OFFSET = 50;
 
-    private static final int MESSAGE_STRIDE = 15; //30
+    private static final int MESSAGE_STRIDE = 15;
 
     private static final int SMALL_OFFSET = 15;  //30
 

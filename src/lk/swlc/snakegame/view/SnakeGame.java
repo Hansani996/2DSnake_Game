@@ -57,7 +57,7 @@ public class SnakeGame  extends JFrame {
         this.sidePanel = new SidePanel(this);
 
         add(board,BorderLayout.CENTER);
-        add(sidePanel,BorderLayout.NORTH); //EAST
+        add(sidePanel,BorderLayout.EAST); //EAST
 
         addKeyListener(new KeyAdapter() {
             @Override
